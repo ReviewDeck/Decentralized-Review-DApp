@@ -9,13 +9,9 @@ contract ReviewSystem {
         string info;
     }
     mapping(bytes32=>Product) public products;
-//    uint public productCount ;
 
-    function ReviewSystem() public{
-//        productCount=0;
-    }
 
-    bytes32[] public productUrls ;/* //urls for all products*/
+    bytes32[] productUrls ;/* //urls for all products*/
 
     function getProductCount() public constant returns(uint count) {
         return productUrls.length;//have to return it there is not way of getting it outside
@@ -24,7 +20,10 @@ contract ReviewSystem {
 //        for(uint i=0;i<productCount;i++)
 
         for(uint i=0;i<productUrls.length;i++)
-            if(productUrls[i]==_productUrl) return false;
+            if(productUrls[i]==_productUrl) return false
+
+
+                ;
         return true;
     }
 
@@ -38,10 +37,13 @@ contract ReviewSystem {
         products[_productUrl]=Product(_productUrl,_info);//dictionary of products
 
 //        productUrls[productCount]=_productUrl;
-        productUrls.push(_productUrl);
+        productUrls.push(_productUrl) -1;
 //        productCount++;
     }
-
+    function getProductUrls() view returns (bytes32[]){
+        //using this will remove 'invalid opmode'
+        return productUrls;
+    }
 //    --------------REVIEW------------------------------
     struct Review{
         uint rIndex;
@@ -66,12 +68,12 @@ contract ReviewSystem {
     /*//    event GetReviewEvent(
     //        Review[]
     //    );*/
-    function getReviews(bytes32 _pUrl) public returns (Review[] _reviews){
-        delete temp;
-        uint count=reviewCounts[_pUrl];
-        for(uint i=0;i<count;i++)
-            temp.push(reviews[_pUrl][i]);
-        return temp;
-    }
+//    function getReviews(bytes32 _pUrpl) public returns (Review[] _reviews){
+//        delete temp;
+//        uint count=reviewCounts[_pUrl];
+//        for(uint i=0;i<count;i++)
+//            temp.push(reviews[_pUrl][i]);
+//        return temp;
+//    }
 }
 
