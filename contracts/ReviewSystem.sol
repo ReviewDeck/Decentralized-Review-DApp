@@ -2,7 +2,6 @@ pragma solidity ^0.4.18;
 //pragma experimental ABIEncoderV2;
 
 contract ReviewSystem {
-    Review[] temp; /*//temp array for storing review for sending back, need to be globally*/
 
     struct Product{
         bytes32 pUrl;
@@ -20,31 +19,25 @@ contract ReviewSystem {
         //        for(uint i=0;i<productCount;i++)
 
         for(uint i=0;i<productUrls.length;i++)
-            if(productUrls[i]==_productUrl) return false
-
-
-                ;
+            if(productUrls[i]==_productUrl) return false;
         return true;
     }
 
-
+   
     /*//function for product*/
+    event OnProductAdded();
 
     function addProduct(bytes32 _productUrl,string _info)  public {
-        // if(!isProductAvailable(_productUrl))
-        //     require(false);//throw exception
-
         products[_productUrl]=Product(_productUrl,_info);//dictionary of products
-
-        //        productUrls[productCount]=_productUrl;
         productUrls.push(_productUrl) -1;
-        //        productCount++;
+        OnProductAdded();
     }
     function getProductUrls() view returns (bytes32[]){
         //using this will remove 'invalid opmode'
         return productUrls;
     }
     //    --------------REVIEW------------------------------
+    
     struct Review{
         uint rIndex;
         bytes32 pUrl;
@@ -53,7 +46,7 @@ contract ReviewSystem {
         uint8 rating;
         string content;
     }
-
+    event OnReviewAdded();
     mapping(bytes32=>mapping(uint=>Review)) public reviews;/*// product=>(rIndex=>Review)*/
 
     mapping(bytes32=>uint) public reviewCounts; /*//product=>reviewCount, review count for each product*/
@@ -65,6 +58,7 @@ contract ReviewSystem {
         address _author=msg.sender;
         reviews[_pUrl][reviewCounts[_pUrl]]=Review(reviewCounts[_pUrl],_pUrl,_author,_timestamp,_rating,_content);
         reviewCounts[_pUrl]++;//because by default 0 will be value in dictionary
+        OnReviewAdded();
     }
 
 }
