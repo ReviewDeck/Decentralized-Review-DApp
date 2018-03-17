@@ -24,10 +24,10 @@ export default () =>
       if (web3IsReady(web3Props)) {
         return (
           <div>
-            <Route exact path='/' component={Home} />
+            <Route exact path='/' render={routeProps => renderComponent(Home, routeProps, web3Props)} />
             <Route path='/dapp' render={routeProps => renderComponent(DApp, routeProps, web3Props)} />
             <Route path='/accounts' render={routeProps => renderComponent(Accounts, routeProps, web3Props)} />
-            <Route path='/reviews' render={routeProps => renderComponent(Reviews, routeProps, web3Props)} />
+            <Route path='/reviews/:product' render={routeProps => renderComponent(Reviews, routeProps, web3Props)} />
           </div>
         )
       } else {
