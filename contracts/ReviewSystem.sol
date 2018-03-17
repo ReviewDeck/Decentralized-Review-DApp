@@ -18,21 +18,25 @@ contract ReviewSystem {
        string content;
    }
 
-   Product[] products;
-   Review[] reviews;
+   Product[] public products;
+   Review[] public reviews;
 
-   function isProductAvailable(bytes32 _pUrl) private returns (bool){
+   function isProductAvailable(bytes _pUrl) view private returns (bool){
         for(uint i=0;i<products.length;i++)
-            if(products[i].pUrl==_pUrl) return false;
+            if(keccak256(products[i].pUrl) == keccak256(_pUrl)) return false;
         return true;
    }
 
    function addProduct(bytes _pUrl,string _info, string _timestamp) public {
-       if(!isProductAvailable(_pUrl))
+       if(isProductAvailable(_pUrl) == false)
               require(false);
 
-       products.push(Product(products.length+1,_pUrl,_info,_timestamp)) -1;
+       uint32  prods = uint32(products.length) + 1;
+       products.push(Product(prods,_pUrl,_info,_timestamp)) -1;
    }
+
+   function getProducts() public constant returns (Product[]) {
+        return products;
+   }
+
 }
-
-
