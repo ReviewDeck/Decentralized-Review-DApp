@@ -1,5 +1,15 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    /*font-family: sans-serif;*/
+}
+
+.gradient-bg {
+    background: #F3904F; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #3B4371, #F3904F); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3B4371, #F3904F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.review-deck-font {
+    font-family: 'Fira Sans', sans-serif !important;
 }

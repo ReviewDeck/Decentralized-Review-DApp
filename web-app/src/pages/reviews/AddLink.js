@@ -1,9 +1,11 @@
 import React from 'react'
 import MicroLinkCard from 'react-microlink'
+import './AddLink.css'
 
 class AddLink extends React.Component {
     state = {
         link: '',
+        review: '',
         loadLinkPreview: false
     }
 
@@ -14,15 +16,19 @@ class AddLink extends React.Component {
     }
 
     linkSubmitted = async () => {
-        const {link} = this.state;
+        const {link, review} = this.state;
+        if (link === "" || review === "")   {
+            console.log('')
+            return;
+        }
         console.log(link)
 
-        await this.props.contract.addProduct(link, link, { from: this.props.accounts[0] })
+        await this.props.contract.addProduct(link, link, {from: this.props.accounts[0]})
     }
 
     validURL = (str) => {
         let pattern = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
-        if(!pattern.test(str)) {
+        if (!pattern.test(str)) {
             console.log("Please enter a valid URL.");
             return false;
         } else {
@@ -31,31 +37,47 @@ class AddLink extends React.Component {
     }
 
     render() {
-        const { web3, accounts, contract } = this.props;
+        const {web3, accounts, contract} = this.props;
         const {link, loadLinkPreview} = this.state;
         return (
-            <div className="">
-                <div className="empty">
-                    <p className="empty-title h3 text-bold">Add Link</p>
-                    <div className="form-group has-success col-mx-auto " style={{ width: '80%' }}>
-                        <input className="form-input p-2" type="text" value={this.state.link} onChange={(e) => this.inputChanged(e)}  placeholder="Link for the product you want to review..." />
-                        {/*<p class="form-input-hint">The name is invalid.</p>*/}
+            <div style={{backgroundColor: '#7E57C2'}}>
+                <div className="Wrapper col-mx-auto">
+                    <h1 className="Title">Review Deck</h1>
+                    <div className="Input">
+                        <input type="text" id="input" className="Input-text"
+                               placeholder="Add Link to the Product you want to Review"
+                               value={this.state.link}
+                               onChange={(e) => this.inputChanged(e)}
+                        />
+                        <label htmlFor="input" className="Input-label">Add Link</label>
                     </div>
                     {
                         loadLinkPreview && link !== ""
-                        ?
+                            ?
                             <MicroLinkCard
                                 url={this.state.link}
+                                style={{margin: '10px auto'}}
                                 target="_blank"
                             />
                             : null
 
                     }
-                    <div className="empty-action pt-2">
-                        <button className="btn btn-primary" onClick={this.linkSubmitted}>Submit Link for the Product</button>
+                    <div className="Input Input-Review">
+                        <textarea className="Input-text" id="review" type="text"
+                                  value={this.state.review}
+                                  onChange={(e) => this.setState({review: e.target.value})}
+                                  placeholder="Your Review..."
+                                  rows="3">
+                        </textarea>
+                        <label htmlFor="review" className="Input-label">Add Review</label>
                     </div>
-                    {/*<LinkCard link={this.state.link} />*/}
+                    <div className="empty-action pt-2 text-center pb-2" style={{ marginBottom: '2rem' }}>
+                        <button className="btn btn-success btn-lg col-mx-auto" onClick={this.linkSubmitted}>
+                            Submit Review for the Product
+                        </button>
+                    </div>
                 </div>
+                {/*/!*<LinkCard link={this.state.link} />*!/*/}
             </div>
         )
     }
