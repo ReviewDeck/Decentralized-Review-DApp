@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  style={
+    Object {
+      "padding": "20px",
+    }
+  }
+>
+  <h1>
+    Home
+  </h1>
+  <p>
+    Note that Web3 is already loaded.
+  </p>
+  <div
+    style={
+      Object {
+        "marginTop": "20px",
+      }
+    }
+  >
+    <a
+      href="/dapp"
+      onClick={[Function]}
+    >
+      My DApp
+    </a>
+    <a
+      href="/accounts"
+      onClick={[Function]}
+      style={
+        Object {
+          "marginLeft": "20px",
+        }
+      }
+    >
+      My Accounts
+    </a>
+  </div>
+</div>
+`;
