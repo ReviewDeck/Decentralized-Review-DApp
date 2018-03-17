@@ -36,9 +36,9 @@ class Products extends React.Component {
             <div>
                 {
                     products.length &&
-                        products.map(product =>
+                        products.map((product, index) =>
                             (
-                                <div>
+                                <div key={index}>
                                     <p>{product[0]}</p>
                                     <p>{product[1]}</p>
                                 </div>

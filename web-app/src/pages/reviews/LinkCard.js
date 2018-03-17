@@ -1,24 +1,5 @@
 import React from 'react'
-import ContentLoader from "react-content-loader"
-
-const MyLoader = () => (
-    <ContentLoader
-        height={200}
-        width={600}
-        speed={2}
-        primaryColor={"#f3f3f3"}
-        secondaryColor={"#ecebeb"}
-    >
-        <circle cx="37" cy="22" r="8" />
-        <rect x="55.65" y="16.53" rx="5" ry="5" width="486.948" height="9.8" />
-        <circle cx="37" cy="52" r="8" />
-        <rect x="55.65" y="46.53" rx="5" ry="5" width="486.948" height="9.8" />
-        <circle cx="37" cy="82" r="8" />
-        <rect x="55.65" y="76.53" rx="5" ry="5" width="486.948" height="9.8" />
-        <circle cx="37" cy="112" r="8" />
-        <rect x="55.65" y="106.53" rx="5" ry="5" width="486.948" height="9.8" />
-    </ContentLoader>
-)
+import MicroLinkCard from 'react-microlink'
 
 class LinkCard extends React.Component {
     state = {
@@ -78,20 +59,12 @@ class LinkCard extends React.Component {
                 <div className="card col-mx-auto" style={{width: '600px', height: '200px', overflow: 'hidden'}}>
                     {
                         !!this.state.title && this.state.loading ?
-                            <MyLoader className="col-mx-auto" />
+                            null
                             :
-                                <span className="d-flex ">
-                                    <div className="card-image">
-                                        <img id="icon" src={this.state.image} className="img-responsive" style={{width: '90px'}}/>
-                                    </div>
-                                    <div>
-                                        <div className="card-header">
-                                            <div className="card-title h5 text-ellipsis">{this.state.title}</div>
-                                            {/*<div className="card-subtitle text-gray">Software and hardware</div>*/}
-                                        </div>
-                                        <div className="card-body text-ellipsis">{this.state.description}</div>
-                                    </div>
-                                </span>
+                            <MicroLinkCard
+                                url={this.state.url}
+                                target="_blank"
+                            />
                     }
                 </div>
             </div>
