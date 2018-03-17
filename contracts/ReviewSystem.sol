@@ -1,42 +1,58 @@
-
 pragma solidity ^0.4.2;
 
 contract ReviewSystem {
 
-   struct Product{
-       uint32 id;
-       bytes pUrl;
-       string info;
-       string timestamp;
-   }
+    struct Product{
+        bytes32 pUrl;
+        string info;
+    }
+    mapping(bytes32=>Product) public products;
 
-   struct Review{
-       address author;
-       uint32 productid;
-       string timestamp;
-       uint32 rating; //later replace that with enum
-       string content;
-   }
+    bytes32[] public productUrls ; //urls for all products
 
-   Product[] public products;
-   Review[] public reviews;
-
-   function isProductAvailable(bytes _pUrl) view private returns (bool){
-        for(uint i=0;i<products.length;i++)
-            if(keccak256(products[i].pUrl) == keccak256(_pUrl)) return false;
+    function isProductAvailable(bytes32 _productUrl) view private returns (bool){
+        for(uint i=0;i<productUrls.length;i++)
+            if(productUrls[i]==_productUrl) return false;
         return true;
-   }
+    }
 
-   function addProduct(bytes _pUrl,string _info, string _timestamp) public {
-       if(isProductAvailable(_pUrl) == false)
-              require(false);
+    struct Review{
+        uint rIndex;
+        bytes32 pUrl;
+        address author;
+        uint64 timestamp;
+        uint8 rating;
+        string content;
+    }
 
-       uint32  prods = uint32(products.length) + 1;
-       products.push(Product(prods,_pUrl,_info,_timestamp)) -1;
-   }
+    mapping(bytes32=>mapping(uint=>Review)) public reviews;// product=>(rIndex=>Review)
 
-   function getProducts() public constant returns (Product[]) {
-        return products;
-   }
+    mapping(bytes32=>uint) public reviewCounts; //product=>reviewCount, review count for each product
 
+    //function for product
+
+    function addProduct(bytes32 _productUrl,string _info)  public {
+        if(!isProductAvailable(_productUrl))
+            require(false);//throw exception
+
+        products[_productUrl]=Product(_productUrl,_info);//dictionary of products
+
+        productUrls.push(_productUrl);
+    }
+
+    function addReview(bytes32 _pUrl,uint64 _timestamp,uint8 _rating,string _content) public{
+        address _author=msg.sender;
+        reviews[_pUrl][reviewCounts[_pUrl]]=Review(reviewCounts[_pUrl],_pUrl,_author,_timestamp,_rating,_content);
+        reviewCounts[_pUrl]++;
+    }
+
+    function getReviews(bytes32 _pUrl) public returns (Review[]){
+        Review[] temp;
+        uint count=reviewCounts[_pUrl];
+        for(uint i=0;i<count;i++)
+            temp.push(reviews[_pUrl][i]);
+        return temp;
+    }
 }
+
+//
