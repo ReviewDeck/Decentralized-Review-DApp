@@ -1,42 +1,71 @@
-
-pragma solidity ^0.4.2;
+pragma solidity ^0.4.18;
+//pragma experimental ABIEncoderV2;
 
 contract ReviewSystem {
+    Review[] temp; /*//temp array for storing review for sending back, need to be globally*/
 
-   struct Product{
-       uint32 id;
-       bytes pUrl;
-       string info;
-       string timestamp;
-   }
+    struct Product{
+        bytes32 pUrl;
+        string info;
+    }
+    mapping(bytes32=>Product) public products;
 
-   struct Review{
-       address author;
-       uint32 productid;
-       string timestamp;
-       uint32 rating; //later replace that with enum
-       string content;
-   }
 
-   Product[] public products;
-   Review[] public reviews;
+    bytes32[] productUrls ;/* //urls for all products*/
 
-   function isProductAvailable(bytes _pUrl) view private returns (bool){
-        for(uint i=0;i<products.length;i++)
-            if(keccak256(products[i].pUrl) == keccak256(_pUrl)) return false;
+    function getProductCount() public constant returns(uint count) {
+        return productUrls.length;//have to return it there is not way of getting it outside
+    }
+    function isProductAvailable(bytes32 _productUrl) view public returns (bool flag){
+        //        for(uint i=0;i<productCount;i++)
+
+        for(uint i=0;i<productUrls.length;i++)
+            if(productUrls[i]==_productUrl) return false
+
+
+                ;
         return true;
-   }
+    }
 
-   function addProduct(bytes _pUrl,string _info, string _timestamp) public {
-       if(isProductAvailable(_pUrl) == false)
-              require(false);
 
-       uint32  prods = uint32(products.length) + 1;
-       products.push(Product(prods,_pUrl,_info,_timestamp)) -1;
-   }
+    /*//function for product*/
 
-   function getProducts() public constant returns (Product[]) {
-        return products;
-   }
+    function addProduct(bytes32 _productUrl,string _info)  public {
+        // if(!isProductAvailable(_productUrl))
+        //     require(false);//throw exception
+
+        products[_productUrl]=Product(_productUrl,_info);//dictionary of products
+
+        //        productUrls[productCount]=_productUrl;
+        productUrls.push(_productUrl) -1;
+        //        productCount++;
+    }
+    function getProductUrls() view returns (bytes32[]){
+        //using this will remove 'invalid opmode'
+        return productUrls;
+    }
+    //    --------------REVIEW------------------------------
+    struct Review{
+        uint rIndex;
+        bytes32 pUrl;
+        address author;
+        uint64 timestamp;
+        uint8 rating;
+        string content;
+    }
+
+    mapping(bytes32=>mapping(uint=>Review)) public reviews;/*// product=>(rIndex=>Review)*/
+
+    mapping(bytes32=>uint) public reviewCounts; /*//product=>reviewCount, review count for each product*/
+
+    function getReviewCount(bytes32 _pUrl) view public returns(uint reviewCount){
+        return reviewCounts[_pUrl];
+    }
+    function addReview(bytes32 _pUrl,uint64 _timestamp,uint8 _rating,string _content) public{
+        address _author=msg.sender;
+        reviews[_pUrl][reviewCounts[_pUrl]]=Review(reviewCounts[_pUrl],_pUrl,_author,_timestamp,_rating,_content);
+        reviewCounts[_pUrl]++;//because by default 0 will be value in dictionary
+    }
 
 }
+
