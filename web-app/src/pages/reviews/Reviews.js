@@ -11,14 +11,14 @@ class Reviews extends React.Component {
     console.log(this.props.contact)
     // await this.getValue()
   }
-  //
+
   // storeValue = async () => {
   //   const { accounts, contract } = this.props
   //   await this.getValue()
   //   await contract.set(this.state.balance + 5, { from: accounts[0] })
   //   await this.getValue()
   // }
-  //
+
   // getValue = async () => {
   //   const { accounts, contract } = this.props
   //   const response = await contract.get.call({ from: accounts[0] })
@@ -31,10 +31,12 @@ class Reviews extends React.Component {
     const { balance } = this.state
     return (
       <Wrapper>
-        <h1>My DApp</h1>
-        <div>
-          <P>Current Balance: {balance}</P>
-          {/*<Button leftMargin onClick={this.getValue}>Refresh...</Button>*/}
+        <div className="bg-gray py-2" style={{paddingTop: 70}}>
+          <h1 className="text-center text-bold p-0">Review Deck</h1>
+          {/*<div>*/}
+            {/*<P>Current Balance: {balance}</P>*/}
+            {/*<Button leftMargin onClick={this.getValue}>Refresh...</Button>*/}
+          {/*</div>*/}
         </div>
           <AddLink {...this.props} />
         {/*<Button onClick={this.storeValue}>Add 5 to the account balance</Button>*/}
