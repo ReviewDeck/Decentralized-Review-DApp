@@ -1,4 +1,4 @@
-pragma solidity ^0.4.20;
+pragma solidity ^0.4.18;
 //pragma experimental ABIEncoderV2;
 
 contract ReviewSystem {
@@ -20,26 +20,15 @@ contract ReviewSystem {
     function getProductCount() public constant returns(uint count) {
         return productUrls.length;//have to return it there is not way of getting it outside
     }
-    function isProductAvailable(bytes32 _productUrl) view private returns (bool flag){
+    function isProductAvailable(bytes32 _productUrl) view public returns (bool flag){
 //        for(uint i=0;i<productCount;i++)
 
-        for(uint i=0;i<products.length;i++)
+        for(uint i=0;i<productUrls.length;i++)
             if(productUrls[i]==_productUrl) return false;
         return true;
     }
 
-    struct Review{
-        uint rIndex;
-        bytes32 pUrl;
-        address author;
-        uint64 timestamp;
-        uint8 rating;
-        string content;
-    }
 
-    mapping(bytes32=>mapping(uint=>Review)) public reviews;/*// product=>(rIndex=>Review)*/
-
-    mapping(bytes32=>uint) public reviewCounts; /*//product=>reviewCount, review count for each product*/
     /*//function for product*/
 
     function addProduct(bytes32 _productUrl,string _info)  public {
@@ -52,6 +41,20 @@ contract ReviewSystem {
         productUrls.push(_productUrl);
 //        productCount++;
     }
+
+//    --------------REVIEW------------------------------
+    struct Review{
+        uint rIndex;
+        bytes32 pUrl;
+        address author;
+        uint64 timestamp;
+        uint8 rating;
+        string content;
+    }
+
+    mapping(bytes32=>mapping(uint=>Review)) public reviews;/*// product=>(rIndex=>Review)*/
+
+    mapping(bytes32=>uint) public reviewCounts; /*//product=>reviewCount, review count for each product*/
 
     function addReview(bytes32 _pUrl,uint64 _timestamp,uint8 _rating,string _content) public{
         address _author=msg.sender;
