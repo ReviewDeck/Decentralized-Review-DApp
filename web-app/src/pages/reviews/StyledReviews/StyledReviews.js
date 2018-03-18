@@ -47,7 +47,7 @@ class StyledReviews extends React.Component{
         const { review} = this.state;
 
 
-        const response = await this.props.contract.addProductAndReview(this.props.match.params.product, this.props.url, Date.now(), 0, review, {from: this.props.accounts[0]})
+        const response = await this.props.contract.addReview(this.props.match.params.product, Date.now(), 0, review, {from: this.props.accounts[0]})
         console.log(response);
         if(response.tx !== undefined) {
             console.log('transaction succesful')
