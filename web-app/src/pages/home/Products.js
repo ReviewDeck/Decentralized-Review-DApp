@@ -34,6 +34,7 @@ class Products extends React.Component {
         const {products} = this.state;
         return (
             <div>
+                <p>Latest Reviewed Products</p>
                 {
                     products.length &&
                         products.map((product, index) =>

@@ -9,7 +9,8 @@ class AddLink extends React.Component {
         link: '',
         review: '',
         loadLinkPreview: false,
-        rating: 0
+        rating: 0,
+        error: null
     }
 
     inputChanged = (e) => {
@@ -23,6 +24,11 @@ class AddLink extends React.Component {
 
         const response = await this.props.contract.addProductAndReview(link, link, Date.now(), rating, review, {from: this.props.accounts[0]})
         console.log(response);
+        if(response.tx !== undefined) {
+            console.log('transaction succesful')
+        } else {
+            this.setState({error: response})
+        }
     }
 
     validURL = (str) => {
@@ -36,7 +42,7 @@ class AddLink extends React.Component {
     }
 
     render() {
-        const {link, review, loadLinkPreview} = this.state;
+        const {link, review, loadLinkPreview, error} = this.state;
         const disabled = link === "" || review === "";
         return (
             <div style={{backgroundColor: '#7E57C2'}}>
@@ -80,6 +86,13 @@ class AddLink extends React.Component {
                         </textarea>
                         <label htmlFor="review" className="Input-label">Add Review</label>
                     </div>
+                    {
+                        error &&
+                            <div class="toast toast-primary">
+                                <button class="btn btn-clear float-right"></button>
+                                {error}
+                            </div>
+                    }
                     <div className="empty-action pt-2 text-center pb-2" style={{ marginBottom: '2rem' }}>
                         <button className="btn btn-success btn-lg col-mx-auto" onClick={this.linkSubmitted}>
                             Submit Review for the Product
