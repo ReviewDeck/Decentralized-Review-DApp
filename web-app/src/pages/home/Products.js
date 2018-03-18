@@ -1,6 +1,6 @@
 import React from 'react'
-import { Wrapper } from 'components/wrapper'
-import { AppNavigation } from 'components/navigation'
+import { Wrapper } from '../../components/wrapper'
+import { AppNavigation } from '../../components/navigation'
 
 class Products extends React.Component {
     state = {

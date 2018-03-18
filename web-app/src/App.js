@@ -1,10 +1,10 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Home } from 'pages/home'
-import { Accounts } from 'pages/accounts'
-import { Reviews } from 'pages/reviews'
-import { DApp } from 'pages/dapp'
-import { Web3 } from 'components/web3'
+import { Home } from './pages/home'
+import { Accounts } from './pages/accounts'
+import { Reviews } from './pages/reviews'
+import { DApp } from './pages/dapp'
+import { Web3 } from './components/web3'
 
 const renderComponent = (Component, routeProps, web3Props) => {
     console.log('web3props', web3Props)
