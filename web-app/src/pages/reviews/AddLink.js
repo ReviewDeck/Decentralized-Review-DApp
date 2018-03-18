@@ -1,6 +1,7 @@
 import React from 'react'
 import MicroLinkCard from 'react-microlink'
 import './AddLink.css'
+import {AppNavigation} from "../../components/navigation/AppNavigation";
 
 class AddLink extends React.Component {
     state = {
@@ -23,7 +24,7 @@ class AddLink extends React.Component {
         }
         console.log(link)
 
-        await this.props.contract.addProduct(link, link, {from: this.props.accounts[0]})
+        // const response = await this.props.contract.addProductAndReview(link, link, new Date(), 1, review, {from: this.props.accounts[0]})
     }
 
     validURL = (str) => {
@@ -41,8 +42,8 @@ class AddLink extends React.Component {
         const {link, loadLinkPreview} = this.state;
         return (
             <div style={{backgroundColor: '#7E57C2'}}>
+                <AppNavigation />
                 <div className="Wrapper col-mx-auto">
-                    <h1 className="Title">Review Deck</h1>
                     <div className="Input">
                         <input type="text" id="input" className="Input-text"
                                placeholder="Add Link to the Product you want to Review"
@@ -77,7 +78,6 @@ class AddLink extends React.Component {
                         </button>
                     </div>
                 </div>
-                {/*/!*<LinkCard link={this.state.link} />*!/*/}
             </div>
         )
     }

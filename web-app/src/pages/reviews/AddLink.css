@@ -67,7 +67,7 @@ html {
 }
 
 .Title {
-    margin: 40px 0 var(--gutterXx) 0;
+    margin: 0 0 var(--gutterXl) 0;
     padding: 0;
     color: #fff;
     font-size: var(--fontSizeMd);
