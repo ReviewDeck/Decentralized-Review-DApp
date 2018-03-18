@@ -21,7 +21,7 @@ class Products extends React.Component {
         console.log(productCount)
         let productUrls = await contract.getProductUrls();
         let products = []
-        for(let i=0;i<productCount; i++) {
+        for(let i=productCount-1;i>0; i--) {
             products.push(await contract.products(this.props.web3.utils.toAscii(productUrls[i])))
         }
         console.log(products);

@@ -17,6 +17,6 @@ body {
     flex-wrap: wrap;
 }
 .product-wrapper {
-    min-width: 300px;
+    min-width: 500px;
     margin-right: 30px;
 }

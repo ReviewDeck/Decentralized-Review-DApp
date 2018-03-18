@@ -47,7 +47,7 @@ class Reviews extends React.Component {
 
         let reviews = []
 
-        for(let i=0;i<reviewCount;i++){
+        for(let i=reviewCount-1;i>0;i--){
             console.log(hashedUrl)
             const asciiUrl= this.props.web3.utils.fromAscii(hashedUrl);
             console.log(asciiUrl)
