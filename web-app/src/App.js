@@ -1,9 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Home } from './pages/home'
-import { Accounts } from './pages/accounts'
 import { Reviews } from './pages/reviews'
-import { DApp } from './pages/dapp'
 import { Web3 } from './components/web3'
 
 const renderComponent = (Component, routeProps, web3Props) => {
@@ -25,8 +23,6 @@ export default () =>
         return (
           <div>
             <Route exact path='/' render={routeProps => renderComponent(Home, routeProps, web3Props)} />
-            <Route path='/dapp' render={routeProps => renderComponent(DApp, routeProps, web3Props)} />
-            <Route path='/accounts' render={routeProps => renderComponent(Accounts, routeProps, web3Props)} />
             <Route path='/reviews/:product' render={routeProps => renderComponent(Reviews, routeProps, web3Props)} />
           </div>
         )

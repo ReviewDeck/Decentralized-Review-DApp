@@ -34,14 +34,13 @@ class Products extends React.Component {
     }
 
     render() {
-        const {location} = this.props;
-        const {products, hashedUrls} = this.state;
+        const {products} = this.state;
         return (
             <div style={{margin: '3rem 0'}}>
                 <h3 style={{margin: '2rem 0'}} className="text-center pt-2">Latest Reviewed Products</h3>
                 <div className="products-container d-flex">
                     {
-                        products.length ?
+                        products.length !== 0 ?
                             products.map((product, index) =>
                                 (
                                     <Product key={index} hashedUrl={product[0]} url={product[1]} />
