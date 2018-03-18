@@ -79,7 +79,7 @@ class Product extends React.Component {
     render() {
         const {url, hashedUrl} = this.props;
         return (
-            <div>
+            <div className="product-wrapper">
                 {
                     this.validUrl(url) ?
                         <Link to={`/reviews/${hashedUrl}`}>
