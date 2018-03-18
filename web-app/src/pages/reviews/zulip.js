@@ -3,7 +3,7 @@ import getSentiments from './azure';
 
 let username = "reviews-bot@reviewsdapp.zulipchat.com"
 let key = "F5X2TttJxpj9onxUMQjurIsNQOZZ33Oc";
-let realm = "";
+let realm = "reviewsdapp";
 
 const config = {
     username: username,
