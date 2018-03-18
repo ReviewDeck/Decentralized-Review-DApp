@@ -9,11 +9,8 @@ class Home extends React.Component {
         const {location} = this.props;
         return (
           <Wrapper>
-            {/*<h1>Home</h1>*/}
-            {/*<p>Note that Web3 is already loaded.</p>*/}
               <AddLink {...this.props} />
               <Products {...this.props}/>
-            <AppNavigation location={location} />
           </Wrapper>
         )
     }

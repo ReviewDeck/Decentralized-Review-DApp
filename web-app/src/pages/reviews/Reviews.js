@@ -3,7 +3,6 @@ import { Wrapper } from '../../components/wrapper'
 import { AppNavigation } from '../../components/navigation'
 import AddLink from './AddLink';
 
-// Demonstration of a basic dapp with the withWeb3 higher-order component
 class Reviews extends React.Component {
     state = { balance: null }
 
@@ -39,14 +38,5 @@ class Reviews extends React.Component {
         )
     }
 }
-
-const P = ({ children }) =>
-    <p style={{ display: 'inline-block', marginBottom: '20px' }}>{ children }</p>
-
-const Button = ({ children, leftMargin, ...rest }) => (
-    leftMargin
-        ? <button style={{ marginLeft: '20px' }} {...rest}>{ children }</button>
-        : <button {...rest}>{ children }</button>
-)
 
 export { Reviews }
