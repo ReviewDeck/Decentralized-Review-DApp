@@ -23,37 +23,15 @@ class AddLink extends React.Component {
     linkSubmitted = async () => {
         const {link, review, rating} = this.state;
 
-        // let apiKey = 'AIzaSyDHHS1PaF44IOF4jmwxd3sdVB7C4YUmGRM';
 
-            //            fetch(`http://thelink.la/api-shorten.php?url=${link}`, {
-            //     method: 'POST',
-            //     body: JSON.stringify({
-            //                     longUrl:link
-            //             }),
-            //     headers: {
-            //         contentType: 'application/json'
-            //     },
-            //     dataType: 'application/json'
-            // }).then(response => response.json())
-        // const googlRespone =
-        //     fetch(`http://thelink.la/api-shorten.php?url=${link}`, {
-        //         mode: 'no-cors'
-        //     })
-        //         .then(response => response.text())
-        //         .then(response => {
-        //         // let shortUrl = response.shortUrl;
-        //         console.log(response)
-        //
-        //     })
-
-
-
-        const response = await this.props.contract.addProductAndReview(md5(link), link, Date.now(), rating, review, {from: this.props.accounts[0]})
-        console.log(response);
-        if(response.tx !== undefined) {
+        // const response = await this.props.contract.addProductAndReview(md5(link), link, Date.now(), rating, review, {from: this.props.accounts[0]})
+        const productResponse = await this.props.contract.addProduct(md5(link), link, {from: this.props.accounts[0]})
+        const reviewResponse = await this.props.contract.addReview(md5(link), Date.now(), rating, review, {from: this.props.accounts[0]})
+        console.log(productResponse, reviewResponse);
+        if(reviewResponse.tx !== undefined && productResponse.tx !== undefined) {
             console.log('transaction succesful')
         } else {
-            this.setState({error: response})
+            this.setState({error: 'lkdsjgljsd'})
         }
     }
 

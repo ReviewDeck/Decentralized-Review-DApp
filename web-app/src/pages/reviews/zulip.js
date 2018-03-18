@@ -1,5 +1,5 @@
-import {zulip} from 'zulip-js';
 import getSentiments from './azure';
+const zulip = require('zulip-js');
 
 let username = "reviews-bot@reviewsdapp.zulipchat.com"
 let key = "F5X2TttJxpj9onxUMQjurIsNQOZZ33Oc";

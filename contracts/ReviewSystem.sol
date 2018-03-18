@@ -25,12 +25,12 @@ contract ReviewSystem {
 
    
     /*//function for product*/
-    event OnProductAdded();
+    //event OnProductAdded();
 
     function addProduct(bytes32 _productUrl,string _info)  public {
         products[_productUrl]=Product(_productUrl,_info);//dictionary of products
         productUrls.push(_productUrl) -1;
-        OnProductAdded();
+        //OnProductAdded();
     }
     function getProductUrls() view public returns (bytes32[]){
         //using this will remove 'invalid opmode'
@@ -46,7 +46,7 @@ contract ReviewSystem {
         uint8 rating;
         string content;
     }
-    event OnReviewAdded();
+    //event OnReviewAdded();
     mapping(bytes32=>mapping(uint=>Review)) public reviews;/*// product=>(rIndex=>Review)*/
 
     mapping(bytes32=>uint) public reviewCounts; /*//product=>reviewCount, review count for each product*/
@@ -58,7 +58,7 @@ contract ReviewSystem {
         address _author=msg.sender;
         reviews[_pUrl][reviewCounts[_pUrl]]=Review(reviewCounts[_pUrl],_pUrl,_author,_timestamp,_rating,_content);
         reviewCounts[_pUrl]++;//because by default 0 will be value in dictionary
-        OnReviewAdded();
+        //OnReviewAdded();
     }
     function addProductAndReview(bytes32 _pUrl,string _pInfo,uint64 _timestamp,uint8 _rating,string _content) public{
         addProduct(_pUrl,_pInfo);
