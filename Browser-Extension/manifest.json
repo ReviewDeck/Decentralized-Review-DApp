@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+  "name": "ReviewDock",
+  "version": "1.2",
+
+  "description": "This is browser extension for Decentralized Review Platform - 'ReviewDock'",
+
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+
+  "browser_action": {
+    "default_icon": "icons/border-48.png",
+    "default_title": "ReviewDock",
+    "default_popup": "popup/index.html"
+  },
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "permissions": [ 
+    "tabs",
+    "storage"
+  ]
+}
