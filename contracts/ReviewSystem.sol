@@ -60,6 +60,10 @@ contract ReviewSystem {
         reviewCounts[_pUrl]++;//because by default 0 will be value in dictionary
         OnReviewAdded();
     }
+    function addProductAndReview(bytes32 _pUrl,string _pInfo,uint64 _timestamp,uint8 _rating,string _content) pgublic{
+        addProduct(_pUrl,_pInfo);
+        addReview(_pUrl,_timestamp,_rating,_content);
+    }
 
 }
 
