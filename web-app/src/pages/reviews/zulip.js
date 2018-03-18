@@ -1,9 +1,9 @@
-import zulip from 'zulip-js';
+import {zulip} from 'zulip-js';
 import getSentiments from './azure';
 
-username = "reviews-bot@reviewsdapp.zulipchat.com"
-key = "F5X2TttJxpj9onxUMQjurIsNQOZZ33Oc";
-realm = "";
+let username = "reviews-bot@reviewsdapp.zulipchat.com"
+let key = "F5X2TttJxpj9onxUMQjurIsNQOZZ33Oc";
+let realm = "";
 
 const config = {
     username: username,
@@ -11,35 +11,35 @@ const config = {
     realm: realm
 };
 
-const zulip = zulip(config);
+const zulipp = zulip(config);
 
 function sendToZulip(product_url, message_content, userid){
 
-    zulip.streams.subscriptions().then(res => {
+    zulipp.streams.subscriptions().then(res => {
         console.log(res);
     }).catch(function(e){
             alert(e);
     });
     
-    stream_name =  project_url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+    let stream_name =  product_url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
     
     
     const config = {
         zuliprc: 'zuliprc-dev',
     };
     
-    zulip(config).then((client) => {
+    zulipp(config).then((client) => {
         // Send a message
         const params = {
             to: 'general',
             type: 'stream',
             subject: stream_name,
-            content:  project_url+ "\n" + message_content + "\n reviewer - " + userid
+            content:  product_url+ "\n" + message_content + "\n reviewer - " + userid
         }
     
         client.messages.send(params).then(function(response){
-            mid = response.id;
-            zulip(config).then((client) => {
+            let mid = response.id;
+            zulipp(config).then((client) => {
                 // add emoji to message
                 var paramss = {
                     message_id: mid,
@@ -53,11 +53,11 @@ function sendToZulip(product_url, message_content, userid){
                     paramss['emoji'] = "neutral";
                 }
                 
-                zulip.reactions.add(paramss).then(function(resp){
+                zulipp.reactions.add(paramss).then(function(resp){
                     console.log(resp); 
                 });
             });
         });
-    }
+    })
 }
 export default sendToZulip;

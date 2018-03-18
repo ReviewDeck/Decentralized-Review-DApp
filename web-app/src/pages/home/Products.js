@@ -1,10 +1,11 @@
 import React from 'react'
-import { Wrapper } from '../../components/wrapper'
-import { AppNavigation } from '../../components/navigation'
+import { Link } from 'react-router-dom'
+import MicroLinkCard from 'react-microlink'
 
 class Products extends React.Component {
     state = {
-        products: []
+        products: [],
+        hashedUrls: []
     }
 
     async componentDidMount() {
@@ -24,6 +25,9 @@ class Products extends React.Component {
             products.push(await contract.products(this.props.web3.utils.toAscii(productUrls[i])))
         }
         console.log(products);
+        let hashed = products.map(product => product[0]);
+        this.setState({hashedUrls: hashed})
+
         products = products.map(product => [this.props.web3.utils.toAscii(product[0]).replace(/\0/g,''), product[1]])
         console.log(products);
         this.setState({products})
@@ -31,24 +35,31 @@ class Products extends React.Component {
 
     render() {
         const {location} = this.props;
-        const {products} = this.state;
+        const {products, hashedUrls} = this.state;
         return (
-            <div>
-                <p>Latest Reviewed Products</p>
-                {
-                    products.length &&
-                        products.map((product, index) =>
-                            (
-                                <div key={index}>
-                                    <p>{product[0]}</p>
-                                    <p>{product[1]}</p>
-                                </div>
+            <div style={{margin: '3rem 0'}}>
+                <h3 style={{margin: '2rem 0'}} className="text-center pt-2">Latest Reviewed Products</h3>
+                <div className="products-container d-flex">
+                    {
+                        products.length &&
+                            products.map((product, index) =>
+                                (
+                                    <Product key={index} hashedUrl={product[0]} url={product[1]} />
+                                )
                             )
-                        )
-                }
+                    }
+                </div>
             </div>
         )
     }
 }
+
+const Product = ({url, hashedUrl}) =>
+    <Link to={`/reviews/${hashedUrl}`}>
+        <MicroLinkCard
+            url={url}
+            style={{margin: '10px auto'}}
+        />
+    </Link>
 
 export { Products }

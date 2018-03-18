@@ -1,19 +1,20 @@
-api_endpoint = "https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment";
+let api_endpoint = "https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment";
 
-key1 = "d36a4f9417e649149ab5f0b6082f4fb6";
-key2 = "e97da104d2f445a4ba21c8d1929612f5";
+let key1 = "d36a4f9417e649149ab5f0b6082f4fb6";
+let key2 = "e97da104d2f445a4ba21c8d1929612f5";
 
 var params = {
     "documents": [
         {
             "language": "en",
             "id": "1",
-            "text": message
+            "text": null
         }
     ]
 };
 
 function getSentiments(message) {
+    params.documents[0].text = message;
 
     fetch(api_endpoint, {
         method: 'POST',
@@ -26,9 +27,9 @@ function getSentiments(message) {
     })
     .then(response => response.json())
     .then(function(response) {
-        var sentiment="negative";
+        let sentiment="negative";
         console.log('Here: ' + response);
-        var score = response.documents[0].score*100;
+        let score = response.documents[0].score*100;
         
         if(score > 40 && score < 60){
             sentiment="neutral";
@@ -38,7 +39,7 @@ function getSentiments(message) {
         return sentiment;        
     })
     .catch(function(data) {
-        console.log("error" + JSON.stringify(data));
+        console.log("errorr" + JSON.stringify(data));
     });
 }
 

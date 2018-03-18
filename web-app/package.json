@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "blueimp-md5": "^2.10.0",
     "fetch": "^1.1.0",
     "react": "^16.2.0",
     "react-content-loader": "^3.1.1",
@@ -14,7 +15,8 @@
     "react-test-renderer": "^16.2.0",
     "styled-components": "^3.2.3",
     "truffle-contract": "^3.0.3",
-    "web3": "^1.0.0-beta.29"
+    "web3": "^1.0.0-beta.29",
+    "zulip-js": "^2.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

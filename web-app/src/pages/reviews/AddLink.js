@@ -3,6 +3,7 @@ import MicroLinkCard from 'react-microlink'
 import './AddLink.css'
 import {AppNavigation} from "../../components/navigation/AppNavigation";
 import ReactStars from 'react-stars'
+const md5 = require('blueimp-md5');
 
 class AddLink extends React.Component {
     state = {
@@ -22,7 +23,32 @@ class AddLink extends React.Component {
     linkSubmitted = async () => {
         const {link, review, rating} = this.state;
 
-        const response = await this.props.contract.addProductAndReview(link, link, Date.now(), rating, review, {from: this.props.accounts[0]})
+        // let apiKey = 'AIzaSyDHHS1PaF44IOF4jmwxd3sdVB7C4YUmGRM';
+
+            //            fetch(`http://thelink.la/api-shorten.php?url=${link}`, {
+            //     method: 'POST',
+            //     body: JSON.stringify({
+            //                     longUrl:link
+            //             }),
+            //     headers: {
+            //         contentType: 'application/json'
+            //     },
+            //     dataType: 'application/json'
+            // }).then(response => response.json())
+        // const googlRespone =
+        //     fetch(`http://thelink.la/api-shorten.php?url=${link}`, {
+        //         mode: 'no-cors'
+        //     })
+        //         .then(response => response.text())
+        //         .then(response => {
+        //         // let shortUrl = response.shortUrl;
+        //         console.log(response)
+        //
+        //     })
+
+
+
+        const response = await this.props.contract.addProductAndReview(md5(link), link, Date.now(), rating, review, {from: this.props.accounts[0]})
         console.log(response);
         if(response.tx !== undefined) {
             console.log('transaction succesful')
@@ -46,7 +72,7 @@ class AddLink extends React.Component {
         const disabled = link === "" || review === "";
         return (
             <div style={{backgroundColor: '#7E57C2'}}>
-                <AppNavigation />
+                <AppNavigation/>
                 <div className="Wrapper col-mx-auto">
                     <div className="Input">
                         <input type="text" id="input" className="Input-text"
@@ -67,15 +93,16 @@ class AddLink extends React.Component {
                             : null
 
                     }
-                    <div className="stars Input pl-2 pt-2 col-mx-auto d-flex" style={{ justifyContent:'start', alignItems: 'center' }}>
-                        <span className="stars-text pr-2" style={{ color: '#fff', fontSize: '1rem'}}>Your Rating:</span>
+                    <div className="stars Input pl-2 pt-2 col-mx-auto d-flex"
+                         style={{justifyContent: 'start', alignItems: 'center'}}>
+                        <span className="stars-text pr-2" style={{color: '#fff', fontSize: '1rem'}}>Your Rating:</span>
                         <ReactStars
                             count={5}
                             value={this.state.rating}
                             onChange={rating => this.setState({rating})}
                             size={24}
                             color1={'#fff'}
-                            color2={'#ffd700'} />
+                            color2={'#ffd700'}/>
                     </div>
                     <div className="Input Input-Review">
                         <textarea className="Input-text" id="review" type="text"
@@ -88,12 +115,12 @@ class AddLink extends React.Component {
                     </div>
                     {
                         error &&
-                            <div class="toast toast-primary">
-                                <button class="btn btn-clear float-right"></button>
-                                {error}
-                            </div>
+                        <div class="toast toast-primary">
+                            <button class="btn btn-clear float-right"></button>
+                            {error}
+                        </div>
                     }
-                    <div className="empty-action pt-2 text-center pb-2" style={{ marginBottom: '2rem' }}>
+                    <div className="empty-action pt-2 text-center pb-2" style={{marginBottom: '2rem'}}>
                         <button className="btn btn-success btn-lg col-mx-auto" onClick={this.linkSubmitted}>
                             Submit Review for the Product
                         </button>
