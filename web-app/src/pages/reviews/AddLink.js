@@ -2,12 +2,14 @@ import React from 'react'
 import MicroLinkCard from 'react-microlink'
 import './AddLink.css'
 import {AppNavigation} from "../../components/navigation/AppNavigation";
+import ReactStars from 'react-stars'
 
 class AddLink extends React.Component {
     state = {
         link: '',
         review: '',
-        loadLinkPreview: false
+        loadLinkPreview: false,
+        rating: 0
     }
 
     inputChanged = (e) => {
@@ -17,14 +19,10 @@ class AddLink extends React.Component {
     }
 
     linkSubmitted = async () => {
-        const {link, review} = this.state;
-        if (link === "" || review === "")   {
-            console.log('')
-            return;
-        }
-        console.log(link)
+        const {link, review, rating} = this.state;
 
-        // const response = await this.props.contract.addProductAndReview(link, link, new Date(), 1, review, {from: this.props.accounts[0]})
+        const response = await this.props.contract.addProductAndReview(link, link, Date.now(), rating, review, {from: this.props.accounts[0]})
+        console.log(response);
     }
 
     validURL = (str) => {
@@ -38,8 +36,8 @@ class AddLink extends React.Component {
     }
 
     render() {
-        const {web3, accounts, contract} = this.props;
-        const {link, loadLinkPreview} = this.state;
+        const {link, review, loadLinkPreview} = this.state;
+        const disabled = link === "" || review === "";
         return (
             <div style={{backgroundColor: '#7E57C2'}}>
                 <AppNavigation />
@@ -63,6 +61,16 @@ class AddLink extends React.Component {
                             : null
 
                     }
+                    <div className="stars Input pl-2 pt-2 col-mx-auto d-flex" style={{ justifyContent:'start', alignItems: 'center' }}>
+                        <span className="stars-text pr-2" style={{ color: '#fff', fontSize: '1rem'}}>Your Rating:</span>
+                        <ReactStars
+                            count={5}
+                            value={this.state.rating}
+                            onChange={rating => this.setState({rating})}
+                            size={24}
+                            color1={'#fff'}
+                            color2={'#ffd700'} />
+                    </div>
                     <div className="Input Input-Review">
                         <textarea className="Input-text" id="review" type="text"
                                   value={this.state.review}

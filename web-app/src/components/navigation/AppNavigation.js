@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export const AppNavigation = ({ location }) =>
   <div>
-      <Link to='/'><h1 style={{padding: '2rem'}} className="Title">Review Deck</h1></Link>
+      <Link to='/' style={{ textDecoration: 'none'}}><h1 style={{padding: '2rem'}} className="Title">Review Deck</h1></Link>
   </div>
 
 // export const AppNavigation = ({ location }) =>
