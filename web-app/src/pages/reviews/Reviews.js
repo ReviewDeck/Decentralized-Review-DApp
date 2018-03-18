@@ -3,10 +3,15 @@ import { Wrapper } from '../../components/wrapper'
 import { AppNavigation } from '../../components/navigation'
 import AddLink from './AddLink';
 import StyledReviews from "./StyledReviews/StyledReviews";
+import MicroLinkCard from 'react-microlink'
+
 // import sendToZulip from './zulip'
 
 class Reviews extends React.Component {
-    state = { reviews: [] }
+    state = {
+        reviews: [],
+        url: ''
+    }
 
     async componentDidMount () {
         console.log(this.props.contract, this.props.location, this.props.match)
@@ -30,6 +35,7 @@ class Reviews extends React.Component {
         contract.products(this.props.match.url).then(product=>{
             product_url = product[1]
             console.log(product)
+            this.setState({url: product_url})
         })
 
         // sendToZulip(product_url, 'skjgdsg', this.props.accounts[0])
@@ -64,31 +70,29 @@ class Reviews extends React.Component {
 
     render () {
         const { web3, accounts, contract } = this.props
-        const { balance } = this.state;
-        // let data= [{
-        //     "content": "Hack In the North Is Best",
-        //     "time": 29,
-        //     "date": "03/17/2018",
-        //     "author":"sanket"
-        // },
-        //     {
-        //         "content": "Eat Code Sleep Repeat!!!!",
-        //         "time": 29,
-        //         "date": "03/17/2018",
-        //         "author":"abhijeet"
-        //     }
-        // ];
         return (
             <Wrapper>
                 <AppNavigation/>
-              <div className="bg-gray py-2" style={{paddingTop: 70}}>
-                <h1 className="text-center text-bold p-0">Review Deck</h1>
-              </div>
+              {/*<div className="bg-gray py-2" style={{paddingTop: 70}}>*/}
+                {/*<h1 className="text-center text-bold p-0">Review Deck</h1>*/}
+              {/*</div>*/}
+                {
+                    this.state.url !== "" ?
+                        <ProductInfo url={this.state.url} />
+                        : null
+                }
               {/*<AddLink {...this.props} />*/}
               <StyledReviews data={this.state.reviews} />
             </Wrapper>
         )
     }
 }
+
+const ProductInfo = ({url}) => (
+    <MicroLinkCard
+        url={url}
+        style={{margin: '10px auto'}}
+    />
+)
 
 export { Reviews }

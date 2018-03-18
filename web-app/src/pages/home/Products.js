@@ -41,12 +41,14 @@ class Products extends React.Component {
                 <h3 style={{margin: '2rem 0'}} className="text-center pt-2">Latest Reviewed Products</h3>
                 <div className="products-container d-flex">
                     {
-                        products.length &&
+                        products.length ?
                             products.map((product, index) =>
                                 (
                                     <Product key={index} hashedUrl={product[0]} url={product[1]} />
                                 )
                             )
+                            :
+                            'There are no products right now'
                     }
                 </div>
             </div>
@@ -54,12 +56,47 @@ class Products extends React.Component {
     }
 }
 
-const Product = ({url, hashedUrl}) =>
-    <Link to={`/reviews/${hashedUrl}`}>
-        <MicroLinkCard
-            url={url}
-            style={{margin: '10px auto'}}
-        />
-    </Link>
+function validURL (str) {
+    let pattern = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+    if (!pattern.test(str)) {
+        console.log("Please enter a valid URL.");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+class Product extends React.Component {
+    validUrl = (str) => {
+        let pattern = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+        if (!pattern.test(str)) {
+            console.log("Please enter a valid URL.");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    render() {
+        const {url, hashedUrl} = this.props;
+        return (
+            <div>
+                {
+                    this.validUrl(url) ?
+                        <Link to={`/reviews/${hashedUrl}`}>
+                            <MicroLinkCard
+                                url={url}
+                                style={{margin: '10px auto'}}
+                            />
+                        </Link>
+                        : null
+                }
+            </div>
+        )
+    }
+
+
+}
+
 
 export { Products }

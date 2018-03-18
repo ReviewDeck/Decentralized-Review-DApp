@@ -3,7 +3,7 @@ import { Navigation } from './Navigation'
 import { Link } from 'react-router-dom'
 
 export const AppNavigation = ({ location }) =>
-  <div>
+  <div style={{backgroundColor: '#7E57C2'}}>
       <Link to='/' style={{ textDecoration: 'none'}}><h1 style={{padding: '2rem'}} className="Title">Review Deck</h1></Link>
   </div>
 
