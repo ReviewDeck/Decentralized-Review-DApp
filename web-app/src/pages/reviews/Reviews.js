@@ -15,8 +15,8 @@ class Reviews extends React.Component {
 
     async componentDidMount () {
         console.log(this.props.contract, this.props.location, this.props.match)
-        await this.getReviews()
 
+        await this.getReviews()
     }
 
     // storeValue = async () => {
@@ -32,9 +32,9 @@ class Reviews extends React.Component {
         console.log(contract, this.props);
 
         let product_url;
-        contract.products(this.props.match.url).then(product=>{
+        contract.products(this.props.match.params.product).then(product=>{
             product_url = product[1]
-            console.log(product)
+            console.log(product, 'product url', product_url)
             this.setState({url: product_url})
         })
 
@@ -82,7 +82,7 @@ class Reviews extends React.Component {
                         : null
                 }
               {/*<AddLink {...this.props} />*/}
-              <StyledReviews data={this.state.reviews} />
+              <StyledReviews  {...this.props} url={this.state.url} data={this.state.reviews} />
             </Wrapper>
         )
     }

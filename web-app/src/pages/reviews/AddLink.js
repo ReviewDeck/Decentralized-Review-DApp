@@ -24,14 +24,12 @@ class AddLink extends React.Component {
         const {link, review, rating} = this.state;
 
 
-        // const response = await this.props.contract.addProductAndReview(md5(link), link, Date.now(), rating, review, {from: this.props.accounts[0]})
-        const productResponse = await this.props.contract.addProduct(md5(link), link, {from: this.props.accounts[0]})
-        const reviewResponse = await this.props.contract.addReview(md5(link), Date.now(), rating, review, {from: this.props.accounts[0]})
-        console.log(productResponse, reviewResponse);
-        if(reviewResponse.tx !== undefined && productResponse.tx !== undefined) {
+        const response = await this.props.contract.addProductAndReview(md5(link), link, Date.now(), rating, review, {from: this.props.accounts[0]})
+        console.log(response);
+        if(response.tx !== undefined) {
             console.log('transaction succesful')
         } else {
-            this.setState({error: 'lkdsjgljsd'})
+            this.setState({error: response})
         }
     }
 
@@ -69,7 +67,6 @@ class AddLink extends React.Component {
                                 target="_blank"
                             />
                             : null
-
                     }
                     <div className="stars Input pl-2 pt-2 col-mx-auto d-flex"
                          style={{justifyContent: 'start', alignItems: 'center'}}>

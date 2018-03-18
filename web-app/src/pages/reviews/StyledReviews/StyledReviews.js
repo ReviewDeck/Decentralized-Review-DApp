@@ -3,7 +3,8 @@ import './StyledReviews.css';
 
 class StyledReviews extends React.Component{
   state={
-      reviewData: []
+      reviewData: [],
+      review: ''
   };
   handleEnter =(e)=>{
       e = e || window.event;
@@ -41,7 +42,21 @@ class StyledReviews extends React.Component{
           document.getElementById("newCommentId").value="";
       }
   };
-    render(){
+
+    linkSubmitted = async () => {
+        const { review} = this.state;
+
+
+        const response = await this.props.contract.addProductAndReview(this.props.match.params.product, this.props.url, Date.now(), 0, review, {from: this.props.accounts[0]})
+        console.log(response);
+        if(response.tx !== undefined) {
+            console.log('transaction succesful')
+        } else {
+            this.setState({error: response})
+        }
+    }
+
+render(){
     return(
            <div className="App">
                <div className="comment_block">
@@ -49,13 +64,19 @@ class StyledReviews extends React.Component{
                        <div className="user_avatar">
                            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/BillSKenney/73.jpg"/>
                        </div><div className="input_comment">
-                       <input id="newCommentId" type="text" placeholder="Join the conversation.." onKeyDown={this.handleEnter}/>
+                       <input id="newCommentId" type="text" placeholder="Join the conversation.." value={this.state.review} onChange={(e) => this.setState({review: e.target.value})} />
+                    </div>
+
+                    <div className="empty-action pt-2 text-center pb-2" style={{marginBottom: '2rem'}}>
+                        <button className="action-button shadow animate blue btn-lg col-mx-auto"q  onClick={this.linkSubmitted}>
+                            Submit Review
+                        </button>
                     </div>
 
                    </div>
                    {
                        this.props.data.map((review,i) =>
-                           <div className="new_comment">
+                           <div key={i} className="new_comment">
                                <ul className="user_comment">
                                    <div className="user_avatar">
                                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/73.jpg"/>
@@ -66,8 +87,8 @@ class StyledReviews extends React.Component{
                                        <div className="comment_details">
                                            <ul>
                                                {/*<li><i className="fa fa-clock-o"/>{obj["time"]}</li>*/}
-                                               <li><i className="fa fa-calendar"/>{review["date"]}</li>
-                                               <li><i className="fa fa-pencil"/> <span className="user">{review["author"]}</span></li>
+                                               {/*<li><i className="fa fa-calendar"/>{review["date"]}</li>*/}
+                                               {/*<li><i className="fa fa-pencil"/> <span className="user">{review["author"]}</span></li>*/}
                                            </ul>
                                        </div>
                                    </div>
