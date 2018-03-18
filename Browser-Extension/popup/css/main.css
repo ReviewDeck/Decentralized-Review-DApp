@@ -192,7 +192,9 @@ iframe {
 [  ]*/
 
 .wrap-input2 {
-  width: 80%;
+  width: %;
+  display: flex;
+  align-items: center;
   position: relative;
   border-bottom: 2px solid #adadad;
   margin-bottom: 37px;
@@ -215,7 +217,9 @@ iframe {
   height: 100%;
   top: 0;
   left: 0;
+  padding-left: 33px;
   pointer-events: none;
+
 }
 
 .focus-input2::before {
@@ -439,4 +443,7 @@ textarea.input2 + .focus-input2::after {
     visibility: visible;
     opacity: 1;
   }
+}
+#myLink{
+  padding-right: 10px;
 }
