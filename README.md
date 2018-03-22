@@ -1,6 +1,8 @@
 # Decentralized-Review-Platform
 It's a Decentralized Review Platform built on top of Ethereum.
 
+![Logo](https://raw.githubusercontent.com/ReviewDeck/Decentralized-Review-DApp/master/screenshots/review-dock-logo.png)
+
 ## What's the issue?
 ------------------------
 Today, most of the community review systems are owned by "Big" centralized organisations like Amazon, Google etc. These organisations when required often influence users contents on the platform to improve their odds in market. Also, due to centralized nature, present systems can be highly effected if the company went down.
@@ -29,3 +31,16 @@ We'll also create a modular "Disqus" like plugin named "Biscus" which can be add
 ## Screenshots
 ----------------------------
     This section contains some sample screenshots of the project
+
+<a href="https://raw.githubusercontent.com/ReviewDeck/Decentralized-Review-DApp/master/screenshots/review-deck.png">
+    <img src="https://raw.githubusercontent.com/ReviewDeck/Decentralized-Review-DApp/master/screenshots/review-deck.png" width="420">
+</a>
+<a href="https://raw.githubusercontent.com/ReviewDeck/Decentralized-Review-DApp/master/screenshots/transaction-pending.png">
+    <img src="https://raw.githubusercontent.com/ReviewDeck/Decentralized-Review-DApp/master/screenshots/transaction-pending.png" width="420">
+</a>
+<a href="https://raw.githubusercontent.com/ReviewDeck/Decentralized-Review-DApp/master/screenshots/transaction-completion.png">
+    <img src="https://raw.githubusercontent.com/ReviewDeck/Decentralized-Review-DApp/master/screenshots/transaction-completion.png" width="420">
+</a>
+<a href="https://raw.githubusercontent.com/ReviewDeck/Decentralized-Review-DApp/master/screenshots/genache-cli.png">
+    <img src="https://raw.githubusercontent.com/ReviewDeck/Decentralized-Review-DApp/master/screenshots/genache-cli.png" width="420">
+</a>
