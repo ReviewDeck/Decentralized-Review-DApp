@@ -47,6 +47,9 @@ We'll also create a modular "Disqus" like plugin named "Biscus" which can be add
 <a href="https://raw.githubusercontent.com/ReviewDeck/Decentralized-Review-DApp/master/screenshots/browser-ext.PNG">
     <img src="https://raw.githubusercontent.com/ReviewDeck/Decentralized-Review-DApp/master/screenshots/browser-ext.PNG" width="420">
 </a>
+<a href="https://raw.githubusercontent.com/ReviewDeck/Decentralized-Review-DApp/master/screenshots/biscus.PNG">
+    <img src="https://raw.githubusercontent.com/ReviewDeck/Decentralized-Review-DApp/master/screenshots/biscus.PNG" width="420">
+</a>
 
 ## Presentation
 ----------------------------
