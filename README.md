@@ -47,3 +47,5 @@ We'll also create a modular "Disqus" like plugin named "Biscus" which can be add
 
 ## Presentation
 ----------------------------
+Find the powerpoint presentation <a href="https://github.com/ReviewDeck/Decentralized-Review-DApp/blob/master/ppt/Decentralized-Review-DApp.pptx">here</a>.
+
